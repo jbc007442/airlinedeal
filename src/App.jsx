@@ -12,7 +12,7 @@ import Baggage_Policy from "./pages/Baggage_Policy";
 import Advisory_Disclosure from "./pages/Advisory_Disclosure";
 import Cookie_Policy from "./pages/Cookie_Policy";
 import Tc from "./pages/Tc";
-import GDRP from "./pages/GDRP";
+import GDRP from "./pages/Gdrp";
 import Privacy_Policy from "./pages/Privacy_Policy";
 import Taxes_Fees from "./pages/Taxes_Fees";
 import Price_Match_Promise from "./pages/Price_Match_Promise";
@@ -21,7 +21,6 @@ import Damage_Management_policy from "./pages/Damage_Management_policy";
 import Service from "./pages/Service";
 import California_Consumer_Privacy_Act from "./pages/California_Consumer_Privacy_Act";
 import Cancel_Policy from "./pages/Cancel_Policy";
-
 
 const App = () => {
   return (
