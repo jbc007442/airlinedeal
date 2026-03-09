@@ -61,8 +61,8 @@ const California_Consumer_Privacy_Act = () => {
           </p>
           <p className="text-blue-500 font-semibold">
             Emailing us at:{" "}
-            <a href="mailto:support@AirLineDeals.com" className="underline hover:text-blue-700">
-              support@AirLineDeals.com
+            <a href="mailto:support@airlinedealhub.com" className="underline hover:text-blue-700">
+              support@airlinedealhub.com
             </a>
           </p>
           <p>

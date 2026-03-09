@@ -61,8 +61,8 @@ const Gdrp = () => {
             If you have questions or would like to exercise any of your GDPR rights, you may contact our Data Protection Officer (DPO) at:
           </p>
           <p className="text-blue-600 font-semibold">
-            <a href="mailto:support@AirLineDeals.com" className="underline hover:text-blue-800">
-              support@AirLineDeals.com
+            <a href="mailto:support@airlinedealhub.com" className="underline hover:text-blue-800">
+              support@airlinedealhub.com
             </a>
           </p>
 

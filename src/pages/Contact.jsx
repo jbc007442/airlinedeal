@@ -4,6 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Mail, Phone } from "lucide-react";
+import aero from "../assets/Aero.jpg";
 
 
 const Contact = () => {
@@ -33,7 +34,7 @@ const Contact = () => {
 
     try {
       const res = await axios.post(
-        "https://bookskytrip.com/contact-mail.php",
+        "https://airlinedealhub.com/contact-mail.php",
         new URLSearchParams({ name, email, phone, message }),
         {
           headers: {
@@ -59,7 +60,7 @@ const Contact = () => {
       {/* Hero Section */}
       <section
         className="relative w-full h-[70vh] bg-cover bg-center flex items-center"
-        style={{ backgroundImage: `url(${"https://images.unsplash.com/photo-1577278254637-a8b6a7f3614e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmV3eW9ya3xlbnwwfHwwfHx8MA%3D%3D"})` }}
+        style={{ backgroundImage: `url(${aero})` }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -130,16 +131,16 @@ const Contact = () => {
           <div className="space-y-6">
             <h4 className="text-2xl font-semibold">Contact</h4>
             <div className="flex items-start gap-4">
-              <Mail className="text-orange-500" />
-              <p>support@airlinedeals.com</p>
+              <Mail className="text-blue-500" />
+              <p>support@airlinedealhub.com</p>
             </div>
             <div className="flex items-start gap-4">
-              <Phone className="text-orange-500" />
+              <Phone className="text-blue-500" />
               <a
-                href="tel:+18559271855"
+                href="tel:+18885016590"
                 className="font-bold text-blue-900 text-lg"
               >
-                (855) 927-1855
+                 (888) 501-6590
               </a>
             </div>
           </div>

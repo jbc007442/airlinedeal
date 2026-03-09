@@ -1,12 +1,13 @@
 
 import { Check } from "lucide-react";
+import aero from "../assets/Aero.jpg";
 
 const About = () => {
   return (
     <>
       <section
         className="relative w-full h-[70vh] bg-cover bg-center flex items-center"
-        style={{ backgroundImage: `url(https://images.unsplash.com/photo-1577278254637-a8b6a7f3614e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmV3eW9ya3xlbnwwfHwwfHx8MA%3D%3D)` }}
+        style={{ backgroundImage: `url(${aero})` }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/40"></div>
@@ -14,7 +15,7 @@ const About = () => {
         {/* Text Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <h1 className="text-white text-4xl md:text-5xl font-bold">
-            About <br className="block md:hidden" /> Company
+            About <br className="block md:hidden" /> AirLineDealHub
           </h1>
         </div>
       </section>

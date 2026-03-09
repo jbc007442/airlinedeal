@@ -58,17 +58,17 @@ const Price_Match_Promise = () => {
           <p>
             To invoke PMP, you are required to contact us at{" "}
             <a
-              href="mailto:support@AirLineDealHub.com"
+              href="mailto:support@airlinedealhub.com"
               className="text-blue-600 underline font-medium"
             >
               support@AirLineDealHub.com
             </a>{" "}
             or call us on{" "}
             <a
-              href="tel:18339142482"
+              href="tel:18885016590"
               className="text-blue-600 underline font-medium"
             >
-              1-833-914-2482
+              (888) 501-6590
             </a>{" "}
             to share your AirLineDealHub  booking reference number and all the
             details of the lower priced itinerary.

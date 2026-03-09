@@ -149,14 +149,14 @@ const Damage_Management_Policy = () => {
               href="mailto:support@AirLineDealHub.com"
               className="text-blue-500 underline hover:text-blue-700"
             >
-              support@AirLineDealHub.com
+              support@airlinedealhub.com
             </a>{" "}
             or give us a call at{" "}
             <a
-              href="tel:+18339142482"
+              href="tel:+18885016590"
               className="text-blue-500 underline hover:text-blue-700"
             >
-              (888) 507-5909
+              (888) 501-6590
             </a>{" "}
             if you have any questions concerning your car rental damage
             documentation or fees.

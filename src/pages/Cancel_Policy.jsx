@@ -15,7 +15,7 @@ const Cancel_Policy = () => {
           <p>
             In order to cancel a flight that you’ve already booked with
             AirLineDealHub, contact our customer service department at{" "}
-            <strong>+1-888-507-5909</strong>.
+            <strong>(888) 501-6590</strong>.
           </p>
           <p className="mt-4">
             Here are some notes to keep in mind when changing or cancelling a
@@ -62,7 +62,7 @@ const Cancel_Policy = () => {
           <h2 className="text-xl text-blue-600 font-semibold mb-2">2. Hotel Cancellations</h2>
           <p>
             You may also want to contact our customer service department at{" "}
-            <strong>+1-888-507-5909</strong> or contact the hotel directly. If
+            <strong>(888) 501-6590</strong> or contact the hotel directly. If
             you need more information, here are some tips on cancelling or
             changing a hotel booking:
           </p>
@@ -102,7 +102,7 @@ const Cancel_Policy = () => {
           </h2>
           <p>
             You may also want to contact AirLineDealHub customer service
-            department at <strong>+1-888-507-5909</strong>, or contact the
+            department at <strong>(888) 501-6590</strong>, or contact the
             rental car company directly. When cancelling a rental car
             reservation, keep in mind:
           </p>
@@ -160,7 +160,7 @@ const Cancel_Policy = () => {
           <p>
             In order to cancel an entire vacation package, you will need to
             contact the customer service department directly at{" "}
-            <strong>+1-888-507-5909</strong>. For cancelling or changing
+            <strong>(888) 501-6590</strong>. For cancelling or changing
             individual parts of your vacation, see the sections above.
           </p>
           <p className="mt-4">

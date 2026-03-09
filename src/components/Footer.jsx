@@ -8,53 +8,29 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from "../assets/A.png";
 
 const Footer = () => {
   return (
     <>
-      <footer className="bg-gray-100 text-black text-sm">
+      <footer className="bg-gray-200 text-black text-sm">
         <div className=" py-10 px-6 grid md:grid-cols-4 gap-8 border-b border-gray-700">
           {/* Logo + Social */}
           <div className="col-span-1 flex flex-col items-center text-center space-y-4">
             {/* Logo & Heading */}
             <div className="flex flex-col items-center space-y-2">
-              <img src="" className="h-32 rounded" alt="Expedai Logo" />
-              <h2 className="text-lg font-bold">
-                <span className="text-red-600"></span> TRAVEL
+              <img src={logo} className="h-32 rounded" alt="Expedai Logo" />
+              <h2 className="text-3xl font-bold">
+                <span className="text-blue-600">Airlinedealhub</span>
               </h2>
             </div>
 
-            {/* Social Icons */}
-            <div className="flex space-x-4 text-xl">
-              <a
-                href=""
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaInstagram className="hover:text-red-600 cursor-pointer" />
-              </a>
-              <a
-                href=""
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaFacebookF className="hover:text-red-600 cursor-pointer" />
-              </a>
-            </div>
-
-            {/* Footer Image */}
-            <div className="pt-2">
-              <img
-                src=""
-                alt="Footer Logo"
-                className="max-w-full h-auto"
-              />
-            </div>
+           
           </div>
 
           {/* Important Links */}
           <div>
-            <h3 className="text-red-600 font-semibold mb-3">IMPORTANT LINKS</h3>
+            <h3 className="text-blue-600 font-semibold mb-3">IMPORTANT LINKS</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/about">About Us</Link>
@@ -82,7 +58,7 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h3 className="text-red-600 font-semibold mb-3">LEGAL</h3>
+            <h3 className="text-blue-600 font-semibold mb-3">LEGAL</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/t&c" className="hover:underline">
@@ -139,20 +115,20 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-red-600 font-semibold mb-3">CONTACT US</h3>
+            <h3 className="text-blue-600 font-semibold mb-3">CONTACT US</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <FaMapMarkerAlt className="mt-1" />
-                <span>1805 HILL AVE HAYWARD, CA 94541 USA</span>
+                <span>1798 D ST,  HAYWARD, CA 94541 USA</span>
               </li>
               <li className="flex items-center gap-2">
                 <FaPhone />
-                <a href="tel:1-833-914-2482">(888) 507-5909</a>
+                <a href="tel:1-833-914-2482">(888) 501-6590</a>
               </li>
               <li className="flex items-center gap-2">
                 <FaEnvelope />
-                <a href="mailto:support@AirLineDealHubs.com">
-                  support@AirLineDealHubs.com
+                <a href="mailto:support@airlinedealhub.com">
+                  support@airlinedealhub.com
                 </a>
               </li>
             </ul>
@@ -172,7 +148,7 @@ const Footer = () => {
             all taxes and fees. The flight search engine used is a third-party
             tool used for just providing the information, we are not associated
             with any company available on it.
-            <Link to="/disclaimer" className="text-red-600 underline">
+            <Link to="/disclaimer" className="text-blue-600 underline">
               read more...
             </Link>
           </p>
@@ -181,15 +157,15 @@ const Footer = () => {
 
           <p>
             SUBJECT TO{" "}
-            <a href="#" className="text-red-600 underline">
+            <a href="/service-fees" className="text-blue-600 underline">
               Our Service Fees
             </a>{" "}
             AND{" "}
-            <Link to="/fullfill" className="text-red-600 underline">
+            <Link to="/fullfill" className="text-blue-600 underline">
               Fulfill Policy
             </Link>
             . SEE AirLineDealHub{" "}
-            <Link to="/cookie-policy" className="text-red-600 underline">
+            <Link to="/cookie-policy" className="text-blue-600 underline">
               Cookie Policy
             </Link>
           </p>
@@ -200,7 +176,7 @@ const Footer = () => {
             SERVICE FEES ON SELECT UNPUBLISHED FARES AND PHONE-ONLY BOOKINGS.
             PROMOTIONS MAY BE MODIFIED OR DISCONTINUED WITHOUT PRIOR NOTICE.
             VALID UNTIL JUL, 31 2025, AT 11:59 PM EST. ADDITIONAL{" "}
-            <Link to="t&c" className="text-red-600 underline">
+            <Link to="t&c" className="text-blue-600 underline">
               Terms & Conditions
             </Link>{" "}
             APPLY.
