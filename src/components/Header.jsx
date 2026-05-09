@@ -21,7 +21,7 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="AirLineDealHub Icon" className="h-16 w-auto" />
             <span className="text-xl font-extrabold tracking-wide text-white font-[Poppins]">
-              FirLine<span className="text-yellow-400">Deal</span>Hub
+              AirLine<span className="text-yellow-400">Deal</span>Hub
             </span>
           </Link>
         </div>
