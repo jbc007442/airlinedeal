@@ -92,121 +92,143 @@ const Reservation = () => {
       {/* Modal for mobile */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex flex-col bg-slate-50 animate-in fade-in zoom-in-95 duration-300">
-          {/* Dynamic Top Alert Bar */}
+          {/* 1. Dynamic Top Alert Bar */}
           <div className="bg-red-600 text-white text-[10px] md:text-xs py-1 px-4 flex justify-center items-center gap-2 font-bold uppercase tracking-widest animate-pulse">
             <span className="w-2 h-2 bg-white rounded-full animate-ping" />
             High Call Volume: Priority Connection Active
           </div>
 
-          {/* Header */}
-          <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100 shadow-sm">
-            <div className="flex flex-col">
-              <h1 className="text-2xl font-black tracking-tight text-yellow-600">
-                Airline<span className="text-slate-800">DealHub</span>
-              </h1>
-              <div className="flex items-center gap-1">
-                <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-                <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
-                  System Online & Verified
-                </span>
-              </div>
-            </div>
+          {/* 2. Header */}
+          <header className="flex items-center justify-between px-2 py-3 bg-white border-b border-stone-100">
+            {/* Logo */}
+            <h1 className="text-sm font-black tracking-tight text-[#FDDB31]">
+              Airline<span className="text-[#FDDB31]">DealHub</span>
+            </h1>
 
-            <button
-              onClick={() => setShowModal(false)}
-              className="p-2 rounded-full bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            {/* Phone + Close */}
+            <div className="flex items-center">
+              <a
+                href="tel:+18885016590"
+                className="text-xs font-bold p-2 border border-gray-400 rounded-full text-slate-800 hover:text-slate-900 transition-colors"
+              >
+                (888) 501-6590
+              </a>
+
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  window.location.href = 'tel:+18885016590';
+                }}
+                className="p-1.5 rounded-full text-slate-400 hover:bg-red-50 hover:text-red-500 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </header>
 
-          {/* Content Area */}
-          <main className="flex-1 flex flex-col items-center justify-center px-6 py-8 overflow-y-auto">
-            {/* Visual Centerpiece with Multi-Layer Glow */}
-            <div className="relative mb-8">
-              <div className="absolute inset-0 bg-yellow-400 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+          {/* 3. The Requested Strip (Enhanced with Pulse) */}
+          <div className="bg-yellow-500 text-black py-3 text-center font-bold text-lg shadow-inner relative overflow-hidden">
+            <div className="relative z-10 flex items-center justify-center gap-3 tracking-wide">
+              RESERVATIONS
+            </div>
+
+            {/* Subtle background shimmer for the strip */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200 to-transparent animate-[shimmer_3s_infinite]" />
+          </div>
+
+          {/* 4. Content Area */}
+          <main className="flex-1 flex flex-col items-center justify-center px-4 py-4 overflow-hidden bg-slate-50">
+            {/* 1. Visual Centerpiece - Scaled down for mobile (w-32 -> w-24) */}
+            <div className="relative mb-4 scale-90 md:scale-100">
+              <div className="absolute inset-0 bg-yellow-400 rounded-full blur-2xl opacity-30 animate-pulse"></div>
               <div className="absolute inset-0 bg-yellow-300 rounded-full scale-110 blur-xl opacity-20 animate-ping"></div>
               <img
                 src={expedia}
                 alt="Partner"
-                className="relative z-10 w-32 h-32 md:w-40 md:h-40 rounded-full border-8 border-white shadow-2xl object-cover"
+                className="relative z-10 w-24 h-24 rounded-full border-4 border-white shadow-xl object-cover"
               />
             </div>
 
-            <div className="text-center mb-6">
-              <h2 className="text-3xl font-black text-slate-900 mb-1 italic">
-                FAST TRACK HELPLINE
+            {/* 2. Text Section - Reduced margin and text size slightly */}
+            <div className="text-center mb-4">
+              <h2 className="text-2xl font-black text-slate-900 mb-0.5 tracking-tight">
+                24/7 Reservations Support
               </h2>
               <p className="text-slate-500 font-semibold text-sm">
                 Average wait time:{' '}
-                <span className="text-green-600 animate-pulse underline">0 minutes</span>
+                <span className="text-green-600 animate-pulse underline">5 sec</span>
               </p>
             </div>
 
-            {/* Modern Grid Action Buttons */}
-            <div className="grid grid-cols-2 gap-3 w-full max-w-md mb-8">
+            {/* 3. Grid Action Buttons - Tighter padding (p-4 -> p-3) and gap */}
+            <div className="grid grid-cols-2 gap-3 w-full max-w-sm mb-5">
               {[
-                { label: 'New Booking', icon: '✈️' },
-                { label: 'Changes', icon: '🔄' },
-                { label: 'Cancellation', icon: '❌' },
-                { label: 'Support', icon: '🎧' },
+                { label: 'New Booking' },
+                { label: 'Changes' },
+                { label: 'Cancellations' },
+                { label: 'Customer Service' },
               ].map((item) => (
                 <a
                   key={item.label}
                   href="tel:+18885016590"
-                  className="flex flex-col items-center justify-center p-4 bg-white border-2 border-transparent rounded-2xl shadow-sm hover:shadow-md hover:border-yellow-400 transition-all active:scale-95 group"
+                  className="flex items-center justify-center py-4 px-3 bg-[#FDDB31] rounded-xl shadow-sm hover:shadow-md hover:bg-yellow-400 transition-all active:scale-95"
                 >
-                  <span className="text-2xl mb-1 group-hover:bounce transition-transform">
-                    {item.icon}
-                  </span>
-                  <span className="text-xs font-black uppercase text-slate-600 tracking-tight">
+                  <span className="text-sm font-bold uppercase text-slate-900 tracking-tight text-center leading-tight">
                     {item.label}
                   </span>
                 </a>
               ))}
             </div>
 
-            {/* Primary CTA with "Blip" and "Shine" Effect */}
-            <div className="w-full max-w-md space-y-4">
+            <div className="text-center border-b border-stone-100">
+              <h2 className="text-sm font-bold text-slate-900 tracking-tight">
+                Booking & Changes Over The Phone
+              </h2>
+            </div>
+
+            {/* 4. Primary CTA - Reduced vertical padding (py-5 -> py-3.5) */}
+            <div className="w-full max-w-xs space-y-3">
               <div className="relative group">
-                {/* The Blinking Aura behind the button */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-2xl blur opacity-40 group-hover:opacity-100 animate-pulse transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl blur opacity-40 group-hover:opacity-100 animate-pulse transition duration-1000"></div>
 
                 <a
                   href="tel:+18885016590"
-                  className="relative flex items-center justify-center gap-3 w-full bg-yellow-500 text-white py-5 rounded-2xl font-black text-2xl shadow-xl hover:bg-yellow-600 transition-all overflow-hidden"
+                  className="relative flex items-center justify-center gap-2 w-full bg-yellow-500 text-black py-3.5 rounded-xl font-black text-xl shadow-lg hover:bg-yellow-600 transition-all overflow-hidden"
                 >
-                  {/* Shimmer Effect that passes over the button */}
                   <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_2s_infinite]" />
-                  <PhoneCall className="w-8 h-8 fill-current animate-bounce" />
-                  (888) 501-6590
+
+                  <PhoneCall className="w-6 h-6 fill-current animate-bounce" />
+                  <span className="animate-[colorChange_3s_infinite] text-lg leading-none">
+                    (888) 501-6590
+                  </span>
                 </a>
               </div>
 
-              <div className="bg-green-50 py-2 px-4 rounded-full border border-green-100 flex items-center justify-center gap-2 mx-auto w-fit">
-                <span className="relative flex h-3 w-3">
+              {/* 5. Status Badge - Smaller text and padding */}
+              <div className="bg-green-50 py-1.5 px-3 rounded-full border border-green-100 flex items-center justify-center gap-2 mx-auto w-fit">
+                <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                <p className="text-green-700 text-[11px] font-black uppercase tracking-tighter">
+                <p className="text-green-700 text-[9px] font-black uppercase tracking-tighter">
                   Agent Assigned & Waiting to Connect
                 </p>
               </div>
             </div>
           </main>
 
-          {/* Modern Footer Strip - Blinking CTA */}
+          {/* 5. Bottom Footer - High Contrast */}
           <a
             href="tel:+18885016590"
-            className="bg-slate-900 text-white py-4 px-6 flex items-center justify-between hover:bg-slate-800 transition-colors"
+            className="bg-slate-900 text-white py-4 px-6 flex items-center justify-between hover:bg-slate-800 transition-colors border-t-4 border-yellow-500"
           >
             <div className="flex flex-col">
               <span className="text-[10px] text-yellow-500 uppercase font-black">
                 Tap to Connect Instantly
               </span>
-              <span className="font-mono font-bold text-xl">(888) 501-6590</span>
+              <span className="font-mono font-bold text-xl text-white">(888) 501-6590</span>
             </div>
-            <div className="bg-yellow-500 text-slate-900 px-6 py-2 rounded-xl font-black text-sm animate-pulse">
+            <div className="bg-yellow-500 text-slate-900 px-6 py-2 rounded-xl font-black text-sm animate-pulse shadow-lg">
               CALL NOW
             </div>
           </a>
