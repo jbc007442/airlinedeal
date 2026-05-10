@@ -264,7 +264,7 @@ const Flight = () => {
                 </div>
               </a>
 
-              <p className="font-bold text-gray-800 mt-3 mb-1 text-sm">
+              <p className="font-bold text-gray-800 mt-6 mb-1 text-sm">
                 No Hold - Call Answered in 5 Sec
               </p>
 
