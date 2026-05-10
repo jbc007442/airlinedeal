@@ -249,7 +249,7 @@ const Flight = () => {
               {/* CTA BUTTON */}
               <a
                 href="tel:+18885016590"
-                className="flex items-center gap-3 bg-gradient-to-t from-[#2B5796] to-[#3A80CE] text-white py-12 px-4 rounded-full shadow-lg max-w-sm mx-auto"
+                className="flex items-center gap-3 bg-gradient-to-t from-[#2B5796] to-[#3A80CE] text-white py-3 px-4 rounded-full shadow-lg max-w-sm mx-auto my-6"
               >
                 <div className="bg-white p-2 rounded-full">
                   <PhoneCall className="w-5 h-5 vibrate text-[#2B5796]" />
