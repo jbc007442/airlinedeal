@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { PhoneCall } from 'lucide-react';
+import { PhoneCall, Menu, X } from 'lucide-react';
+
 import logo from '../assets/A.png';
 
 const Header = () => {
@@ -9,157 +10,214 @@ const Header = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  // ✅ Hide nav links on these routes
+  // Hide nav on these routes
   const hideNavRoutes = ['/results'];
   const hideNav = hideNavRoutes.includes(location.pathname);
 
   return (
-    <header className="bg-blue-500 text-white">
-      <div className="container mx-auto flex justify-between items-center p-4 relative">
-        {/* Logo */}
-        <div className="flex-shrink-0">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="AirLineDealHub Icon" className="h-16 w-auto" />
-            <span className="text-xl font-extrabold tracking-wide text-white font-[Poppins]">
-              Tarun<span className="text-yellow-400">Deal</span>Hub
-            </span>
-          </Link>
-        </div>
+    <>
+      {/* ================= TOP HEADER ================= */}
+      <div className="hidden md:block bg-[#003B5C] text-white border-b border-white/10 overflow-hidden">
+        <div className="max-w-7xl mx-auto relative overflow-hidden h-11 flex items-center">
+          {/* Marquee Track */}
+          <div className="flex items-center whitespace-nowrap animate-marquee gap-16 absolute">
+            <div className="flex items-center gap-2 text-sm font-medium tracking-wide">
+              <span className="text-yellow-300 font-bold text-base">✈ 65% OFF</span>
 
-        {/* ✅ Desktop Menu (hidden on /results) */}
-        {!hideNav && (
-          <nav className="hidden md:flex gap-6 justify-end mr-20 flex-1">
-            <Link
-              to="/"
-              className={`hover:text-gray-300 ${isActive('/') ? 'border-b-2 border-white' : ''}`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className={`hover:text-gray-300 ${
-                isActive('/about') ? 'border-b-2 border-white' : ''
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className={`hover:text-gray-300 ${
-                isActive('/contact') ? 'border-b-2 border-white' : ''
-              }`}
-            >
-              Contact
-            </Link>
-          </nav>
-        )}
+              <span>Get Amazing Deals on Flights & Travel Packages</span>
+            </div>
 
-        {/* Desktop Right - Support Info */}
-        <div className="hidden md:flex flex-col items-end text-sm leading-tight">
-          <span className="font-semibold text-blue-100">Call Us</span>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <PhoneCall size={15} className="text-yellow-300" />
+              <span>Call Now: +1-888-501-6590</span>
+            </div>
 
-          {/* Phone with animation */}
-          <div className="flex items-center gap-2 relative">
-            <span className="relative inline-flex h-10 w-10 rounded-full bg-blue-600 text-white items-center justify-center animate-vibrate">
-              <PhoneCall size={24} />
-            </span>
-            <span className="text-xl font-bold text-white">(888) 501-6590</span>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span className="text-yellow-300">🔥 Limited Time Offer</span>
+            </div>
+
+            {/* Duplicate */}
+            <div className="flex items-center gap-2 text-sm font-medium tracking-wide">
+              <span className="text-yellow-300 font-bold text-base">✈ 65% OFF</span>
+
+              <span>Get Amazing Deals on Flights & Travel Packages</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <PhoneCall size={15} className="text-yellow-300" />
+              <span>Call Now: +1-888-501-6590</span>
+            </div>
           </div>
         </div>
-
-        {/* Mobile Menu Button */}
-        {!hideNav && (
-          <button className="md:hidden focus:outline-none" onClick={() => setIsOpen(true)}>
-            ☰
-          </button>
-        )}
       </div>
 
-      {/* ✅ Offcanvas Menu (hidden on /results) */}
-      {!hideNav && (
-        <div
-          className={`fixed top-0 right-0 z-50 h-full w-64 bg-blue-700 text-white transform transition-transform duration-300 ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          <div className="flex justify-between items-center p-4 border-b border-gray-700">
-            <h2 className="text-lg font-bold">Menu</h2>
-            <button onClick={() => setIsOpen(false)}>✕</button>
-          </div>
-          <nav className="flex flex-col gap-4 p-4">
-            <Link
-              to="/"
-              onClick={() => setIsOpen(false)}
-              className={isActive('/') ? 'text-blue-400' : ''}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              onClick={() => setIsOpen(false)}
-              className={isActive('/about') ? 'text-blue-400' : ''}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              onClick={() => setIsOpen(false)}
-              className={isActive('/contact') ? 'text-blue-400' : ''}
-            >
-              Contact
-            </Link>
-          </nav>
-        </div>
-      )}
+      {/* ================= MAIN HEADER ================= */}
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-24">
+            {/* ================= LOGO ================= */}
+            <div className="flex-shrink-0">
+              <Link to="/" className="flex items-center gap-3 group">
+                {/* Text */}
+                <div className="hidden sm:block leading-tight">
+                  <h1 className="text-2xl font-extrabold tracking-tight text-black font-[Poppins]">
+                    Airline
+                    <span className="text-blue-400">Deal</span>
+                    Hub
+                  </h1>
 
-      {/* Overlay (mobile menu backdrop) */}
-      {isOpen && !hideNav && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40"
-          onClick={() => setIsOpen(false)}
-        ></div>
-      )}
-    </header>
+                  <p className="text-xs text-gray-500 font-medium tracking-widest uppercase">
+                    Best Flight Deals Worldwide
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            {/* ================= DESKTOP MENU ================= */}
+            {!hideNav && (
+              <nav className="hidden lg:flex items-center gap-10 flex-1 justify-center">
+                <Link
+                  to="/"
+                  className={`relative text-[17px] font-semibold transition duration-300 hover:text-[#005B8F] ${
+                    isActive('/') ? 'text-[#005B8F]' : 'text-gray-800'
+                  }`}
+                >
+                  Home
+                  {isActive('/') && (
+                    <span className="absolute left-0 -bottom-2 h-[3px] w-full rounded-full bg-[#005B8F]"></span>
+                  )}
+                </Link>
+
+                <Link
+                  to="/about"
+                  className={`relative text-[17px] font-semibold transition duration-300 hover:text-[#005B8F] ${
+                    isActive('/about') ? 'text-[#005B8F]' : 'text-gray-800'
+                  }`}
+                >
+                  About
+                  {isActive('/about') && (
+                    <span className="absolute left-0 -bottom-2 h-[3px] w-full rounded-full bg-[#005B8F]"></span>
+                  )}
+                </Link>
+
+                <Link
+                  to="/contact"
+                  className={`relative text-[17px] font-semibold transition duration-300 hover:text-[#005B8F] ${
+                    isActive('/contact') ? 'text-[#005B8F]' : 'text-gray-800'
+                  }`}
+                >
+                  Contact
+                  {isActive('/contact') && (
+                    <span className="absolute left-0 -bottom-2 h-[3px] w-full rounded-full bg-[#005B8F]"></span>
+                  )}
+                </Link>
+              </nav>
+            )}
+
+            {/* ================= RIGHT CALL SECTION ================= */}
+            <div className="hidden md:flex items-center gap-4">
+              {/* Animated Phone */}
+              <div className="relative">
+                {/* Ping Effect */}
+                <span className="absolute inset-0 rounded-full bg-[#005B8F] animate-ping opacity-20"></span>
+
+                <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#005B8F] to-[#0A74B8] text-white shadow-xl">
+                  <PhoneCall size={20} />
+                </div>
+              </div>
+
+              {/* Text */}
+              <div className="leading-tight">
+                <p className="text-xs uppercase tracking-[3px] text-gray-500 font-semibold">
+                  24/7 Support
+                </p>
+
+                <a
+                  href="tel:+18885016590"
+                  className="text-2xl font-extrabold text-black hover:text-[#005B8F] transition"
+                >
+                  (888) 501-6590
+                </a>
+              </div>
+            </div>
+
+            {/* ================= MOBILE BUTTON ================= */}
+            {!hideNav && (
+              <button
+                className="lg:hidden flex items-center justify-center h-11 w-11 rounded-xl bg-[#005B8F] text-white shadow-lg hover:scale-105 transition"
+                onClick={() => setIsOpen(true)}
+              >
+                <Menu size={24} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* ================= MOBILE SIDEBAR ================= */}
+        {!hideNav && (
+          <div
+            className={`fixed top-0 right-0 z-50 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 ${
+              isOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
+            {/* Sidebar Header */}
+            <div className="flex justify-between items-center p-5 border-b">
+              <img src={logo} alt="Logo" className="h-12" />
+
+              <button onClick={() => setIsOpen(false)}>
+                <X size={28} />
+              </button>
+            </div>
+
+            {/* Sidebar Links */}
+            <nav className="flex flex-col gap-5 p-6 text-gray-800 font-medium">
+              <Link
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className={isActive('/') ? 'text-[#005B8F]' : ''}
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/about"
+                onClick={() => setIsOpen(false)}
+                className={isActive('/about') ? 'text-[#005B8F]' : ''}
+              >
+                About
+              </Link>
+
+              <Link
+                to="/contact"
+                onClick={() => setIsOpen(false)}
+                className={isActive('/contact') ? 'text-[#005B8F]' : ''}
+              >
+                Contact
+              </Link>
+
+              {/* Mobile Call Box */}
+              <a
+                href="tel:+18885016590"
+                className="mt-5 bg-[#005B8F] text-white rounded-2xl p-4 flex items-center gap-3"
+              >
+                <PhoneCall size={22} />
+
+                <div>
+                  <p className="text-sm">Call Us</p>
+                  <p className="font-bold text-lg">+1-888-501-6590</p>
+                </div>
+              </a>
+            </nav>
+          </div>
+        )}
+
+        {/* Overlay */}
+        {isOpen && !hideNav && (
+          <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setIsOpen(false)}></div>
+        )}
+      </header>
+    </>
   );
 };
 
 export default Header;
-
-
-
-
-
-//  <header className="bg-blue-500 text-white">
-//         <div className="container mx-auto flex justify-between items-center p-2 md:p-4">
-//           {/* Logo */}
-//           <Link to="/" className="flex items-center gap-2">
-//             <img
-//               src={logo}
-//               alt="AirLineDealHub Icon"
-//               className="h-8 w-auto md:h-14 transition-all"
-//             />
-//             <span className="text-sm md:text-xl font-extrabold tracking-wide text-white font-[Poppins] leading-none">
-//               AirLine<span className="text-yellow-400">Deal</span>Hub
-//             </span>
-//           </Link>
-
-//           {/* Phone Number */}
-//           <div className="flex items-center gap-2 md:gap-3">
-//             {/* Call Us (desktop only) */}
-//             <span className="hidden md:block font-semibold text-blue-100 text-sm">Call Us</span>
-
-//             {/* Phone Icon */}
-//             <span className="relative inline-flex h-7 w-7 md:h-10 md:w-10 rounded-full bg-blue-600 text-white items-center justify-center animate-vibrate">
-//               <PhoneCall size={16} className="md:size-6" />
-//             </span>
-
-//             {/* Phone Number */}
-//             <a
-//               href="tel:8885016590"
-//               className="font-bold text-white text-sm md:text-xl leading-none hover:text-yellow-300 transition"
-//             >
-//               (888) 501-6590
-//             </a>
-//           </div>
-//         </div>
-//       </header>

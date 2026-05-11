@@ -11,7 +11,6 @@ import {
   FiCalendar,
   FiSliders,
 } from 'react-icons/fi';
-import { getAmadeusToken } from '../utils/amadeusToken';
 import Autosuggest from 'react-autosuggest';
 
 // -----------------------------
@@ -867,201 +866,87 @@ const Results = () => {
   const [airlines, setAirlines] = useState([]); // selected airlines (names)
   const [priceCap, setPriceCap] = useState(0);
 
-  // Fetch live flights from Amadeus
+  // Fetch Flights From Duffel PHP API
   useEffect(() => {
     const fetchFlights = async () => {
       try {
-        const token = await getAmadeusToken();
-        if (!token) {
-          setError('Could not get Amadeus access token.');
-          return;
-        }
+        setError('');
 
-        const baseUrl = import.meta.env.VITE_AMADEUS_BASE_URL || 'https://test.api.amadeus.com';
-        let from, to, date;
+        // OUTBOUND SEARCH
+        const response = await fetch('https://airlinedealhub.com/search.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
 
-        // ✅ Determine route (return or normal)
-        if (form.tripType === 'round' && form.departFlight) {
-          from = form.to_iata;
-          to = form.from_iata;
-          date = form.ret;
-        } else {
-          from = form.from_iata;
-          to = form.to_iata;
-          date = form.depart;
-        }
+          body: JSON.stringify({
+            from: form.from_iata,
+            to: form.to_iata,
+            departDate: form.depart,
+            returnDate: form.ret,
+            passengers: form.passengers || 1,
+            cabinClass: form.travelClass?.toLowerCase().replace(' ', '_') || 'economy',
 
-        // ✅ Validate essential fields before API
-        if (!from || !to || !date) return;
-
-        // ✅ Normalize date
-        date =
-          new Date(date) >= new Date()
-            ? new Date(date).toISOString().split('T')[0]
-            : new Date().toISOString().split('T')[0];
-
-        const adults = form.passengers || 1;
-
-        const url = `${baseUrl}/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${date}&adults=${adults}&currencyCode=USD&max=30`;
-
-        const res = await fetch(url, {
-          headers: { Authorization: `Bearer ${token}` },
+            tripType: form.tripType || 'oneway',
+          }),
         });
 
-        if (!res.ok) {
-          const t = await res.text().catch(() => '');
-          throw new Error(`Amadeus error ${res.status}: ${t || res.statusText}`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to fetch flights');
         }
 
-        const data = await res.json();
-        const carriersDict = data?.dictionaries?.carriers || {};
+        const mappedFlights = result.data || [];
 
-        const mapped = (data?.data || []).map((offer, idx) => {
-          const itn = offer.itineraries?.[0];
-          const seg0 = itn?.segments?.[0];
-          const segLast = itn?.segments?.[itn?.segments?.length - 1];
+        setFlights(mappedFlights);
 
-          const airlineCode = seg0?.carrierCode || 'XX';
-          const airlineName = carriersDict[airlineCode] || airlineCode;
-
-          const departAt = seg0?.departure?.at || '';
-          const arriveAt = segLast?.arrival?.at || '';
-
-          // 🟢 Find full airport names for top-level summary
-          const fromCode = seg0?.departure?.iataCode;
-          const toCode = segLast?.arrival?.iataCode;
-          const fromAirport = airports.find((a) => a.iata === fromCode);
-          const toAirport = airports.find((a) => a.iata === toCode);
-
-          return {
-            id: `${offer.id}-${idx}`,
-            airlineCode,
-            airlineName,
-            code: offer.id,
-            from: fromCode || '',
-            to: toCode || '',
-            fromFull: fromAirport?.name || fromCode, // 🟢 Added
-            toFull: toAirport?.name || toCode, // 🟢 Added
-            departTime: departAt ? departAt.split('T')[1]?.slice(0, 5) : '--:--',
-            arriveTime: arriveAt ? arriveAt.split('T')[1]?.slice(0, 5) : '--:--',
-            duration: fmtDuration(itn?.duration),
-            stops: (itn?.segments?.length || 1) - 1,
-            price: offer?.price?.total || '0',
-
-            // ✅ Add full segments for detail view (with full airport names)
-            segments: (itn?.segments || []).map((seg) => {
-              const sFrom = seg?.departure?.iataCode;
-              const sTo = seg?.arrival?.iataCode;
-              const fromInfo = airports.find((a) => a.iata === sFrom);
-              const toInfo = airports.find((a) => a.iata === sTo);
-
-              return {
-                airlineCode: seg?.carrierCode || 'XX',
-                airlineName:
-                  carriersDict[seg?.carrierCode] || seg?.carrierCode || 'Unknown Airline',
-                code: seg?.number || 'N/A',
-                from: sFrom,
-                to: sTo,
-                fromFull: fromInfo?.name || sFrom, // 🟢 Added
-                toFull: toInfo?.name || sTo, // 🟢 Added
-                departTime: seg?.departure?.at
-                  ? seg.departure.at.split('T')[1]?.slice(0, 5)
-                  : '--:--',
-                arriveTime: seg?.arrival?.at ? seg.arrival.at.split('T')[1]?.slice(0, 5) : '--:--',
-                departDate: seg?.departure?.at,
-                arriveDate: seg?.arrival?.at,
-                duration: fmtDuration(seg?.duration),
-                departTerminal: seg?.departure?.terminal,
-                arriveTerminal: seg?.arrival?.terminal,
-              };
-            }),
-          };
-        });
-
-        setFlights(mapped);
-        setError(mapped.length ? '' : 'No flights found.');
-
-        // ✅ If it's a round trip, fetch return flights automatically
+        // RETURN FLIGHTS
         if (form.tripType === 'round') {
-          try {
-            const token2 = await getAmadeusToken();
-            if (!token2) return;
+          const returnResponse = await fetch('https://airlinedealhub.com/search.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
 
-            const baseUrl2 =
-              import.meta.env.VITE_AMADEUS_BASE_URL || 'https://test.api.amadeus.com';
-            const url2 = `${baseUrl2}/v2/shopping/flight-offers?originLocationCode=${
-              form.to_iata
-            }&destinationLocationCode=${form.from_iata}&departureDate=${form.ret}&adults=${
-              form.passengers || 1
-            }&currencyCode=USD&max=30`;
+            body: JSON.stringify({
+              from: form.to_iata,
+              to: form.from_iata,
+              departDate: form.ret,
+              passengers: form.passengers || 1,
 
-            const res2 = await fetch(url2, {
-              headers: { Authorization: `Bearer ${token2}` },
-            });
+              cabinClass: form.travelClass?.toLowerCase().replace(' ', '_') || 'economy',
 
-            if (res2.ok) {
-              const data2 = await res2.json();
-              const carriersDict2 = data2?.dictionaries?.carriers || {};
+              tripType: 'oneway',
+            }),
+          });
 
-              const mappedReturn = (data2?.data || []).map((offer, idx) => {
-                const itn = offer.itineraries?.[0];
-                const seg0 = itn?.segments?.[0];
-                const segLast = itn?.segments?.[itn?.segments?.length - 1];
+          const returnResult = await returnResponse.json();
 
-                const airlineCode = seg0?.carrierCode || 'XX';
-                const airlineName = carriersDict2[airlineCode] || airlineCode;
-
-                const departAt = seg0?.departure?.at || '';
-                const arriveAt = segLast?.arrival?.at || '';
-
-                const fromCode = seg0?.departure?.iataCode;
-                const toCode = segLast?.arrival?.iataCode;
-                const fromAirport = airports.find((a) => a.iata === fromCode);
-                const toAirport = airports.find((a) => a.iata === toCode);
-
-                return {
-                  id: `${offer.id}-ret-${idx}`,
-                  airlineCode,
-                  airlineName,
-                  code: offer.id,
-                  from: fromCode || '',
-                  to: toCode || '',
-                  fromFull: fromAirport?.name || fromCode,
-                  toFull: toAirport?.name || toCode,
-                  departTime: departAt ? departAt.split('T')[1]?.slice(0, 5) : '--:--',
-                  arriveTime: arriveAt ? arriveAt.split('T')[1]?.slice(0, 5) : '--:--',
-                  duration: fmtDuration(itn?.duration),
-                  stops: (itn?.segments?.length || 1) - 1,
-                  price: offer?.price?.total || '0',
-                };
-              });
-
-              setReturnFlights(mappedReturn);
-            }
-          } catch (err2) {
-            console.error('Return flight fetch failed:', err2);
-          }
+          setReturnFlights(returnResult.data || []);
         }
 
-        // ✅ Init filters
+        // FILTERS
         const allAirlineNames = Array.from(
-          new Set(mapped.map((f) => f.airlineName || f.airlineCode))
+          new Set(mappedFlights.map((f) => f.airlineName || f.airlineCode))
         );
+
         setAirlines(allAirlineNames);
-        const maxP = Math.max(0, ...mapped.map((f) => Number(f.price) || 0));
+
+        const maxP = Math.max(0, ...mappedFlights.map((f) => Number(f.price) || 0));
+
         setPriceCap(maxP);
+
+        setError(mappedFlights.length ? '' : 'No flights found.');
       } catch (err) {
         console.error(err);
         setError('Failed to load flights.');
       }
     };
 
-    // ✅ Fetch flights every time search form changes
     if (form.from_iata && form.to_iata && form.depart) {
       fetchFlights();
     }
-
-    // }, [location.state]); // 👈 WATCH for new search via navigate()
   }, [location.state?.timestamp]);
 
   // Build options and price bounds from live flights
@@ -1315,6 +1200,6 @@ const Results = () => {
       </div>
     </div>
   );
-};
+};;
 
 export default Results;
